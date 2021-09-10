@@ -15,9 +15,15 @@ A [Chromium](https://www.chromium.org/Home) based browser such as:
 
 ## Available @
 
-coming soon to the chrome web store.  In the mean time, you can install the extension from the GitHub repository by using the browser developer mode.
+***Coming soon to the*** [Chrome web store](https://chrome.google.com/webstore/detail/difihjamhbmpnhdfomhpegbpbemfkelm)
+
+In the mean time, you can install the extension from the GitHub repository by using the browser developer mode.
+
+## Screenshot
+![Sample](./docs/sample.png)
 
 ## Tools Used
-* [Visual Studio Code](https://code.visualstudio.com/): [CSS](https://code.visualstudio.com/docs/languages/css), [Javascript](https://code.visualstudio.com/docs/languages/javascript), [JSON](https://code.visualstudio.com/docs/languages/json), [HTML](https://code.visualstudio.com/docs/languages/html)
+* [Visual Studio Code](https://code.visualstudio.com/): [CSS](https://code.visualstudio.com/docs/languages/css), [Javascript](https://code.visualstudio.com/docs/languages/javascript), [JSON](https://code.visualstudio.com/docs/languages/json), [HTML](https://code.visualstudio.com/docs/languages/html), [Markdown](https://code.visualstudio.com/docs/languages/markdown)
+* [Paint.NET](https://www.getpaint.net/)
 ---
 Copyright (c) 2021 Mark Crowe <https://github.com/markcrowe-com>. All rights reserved.
