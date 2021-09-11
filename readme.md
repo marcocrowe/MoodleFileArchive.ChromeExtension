@@ -1,4 +1,9 @@
 # Moodle File Archive ![icon](./icons/moodle-icon-036.png)
+A browser extension written in JavaScript.
+
+## Available @
+
+- [Chrome web store](https://chrome.google.com/webstore/detail/moodle-file-archive/difihjamhbmpnhdfomhpegbpbemfkelm)
 
 ## Background
 To keep a copy of the files on a moodle module you have to download each file, the filename often does not match the file title on the webpage, and the order of the files is not obvious.  The Moodle File Archive extension parses the webpages and downloads the files in the correct order with correct file title.  All the file downloads are initiated at once by clicking on the extension button.
@@ -13,15 +18,12 @@ A [Chromium](https://www.chromium.org/Home) based browser such as:
 - [Microsoft Edge](https://www.microsoft.com/en-us/windows/microsoft-edge)
 - [Opera](https://www.opera.com/)
 
-## Available @
-
-[Chrome web store](https://chrome.google.com/webstore/detail/moodle-file-archive/difihjamhbmpnhdfomhpegbpbemfkelm)
 
 ## Screenshot
 ![Sample](./docs/sample.png)
 
 ## Tools Used
-* [Visual Studio Code](https://code.visualstudio.com/): [CSS](https://code.visualstudio.com/docs/languages/css), [Javascript](https://code.visualstudio.com/docs/languages/javascript), [JSON](https://code.visualstudio.com/docs/languages/json), [HTML](https://code.visualstudio.com/docs/languages/html), [Markdown](https://code.visualstudio.com/docs/languages/markdown)
+* [Visual Studio Code](https://code.visualstudio.com/): [`CSS`](https://code.visualstudio.com/docs/languages/css), [`Javascript`](https://code.visualstudio.com/docs/languages/javascript), [`JSON`](https://code.visualstudio.com/docs/languages/json), [`HTML`](https://code.visualstudio.com/docs/languages/html), [`Markdown`](https://code.visualstudio.com/docs/languages/markdown)
 * [Paint.NET](https://www.getpaint.net/)
 ---
 Copyright (c) 2021 Mark Crowe <https://github.com/markcrowe-com>. All rights reserved.
