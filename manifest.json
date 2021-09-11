@@ -7,7 +7,7 @@
 	{
 		"default_icon": "icons/moodle-icon-016.png",
 		"default_popup": "src/popup.html",
-		"default_title": "Download Moodle Page contents."
+		"default_title": "Download Moodle page contents."
 	},
 	"content_scripts":
 	[
