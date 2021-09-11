@@ -15,9 +15,7 @@ A [Chromium](https://www.chromium.org/Home) based browser such as:
 
 ## Available @
 
-***Coming soon to the*** [Chrome web store](https://chrome.google.com/webstore/detail/difihjamhbmpnhdfomhpegbpbemfkelm)
-
-In the mean time, you can install the extension from the GitHub repository by using the browser developer mode.
+[Chrome web store](https://chrome.google.com/webstore/detail/moodle-file-archive/difihjamhbmpnhdfomhpegbpbemfkelm)
 
 ## Screenshot
 ![Sample](./docs/sample.png)
