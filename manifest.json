@@ -1,13 +1,9 @@
 {
 	"background":
 	{
-		"persistent": false,
-		"scripts":
-		[
-			"src/background.js"
-		]
+		"service_worker": "src/background.js"
 	},
-	"browser_action":
+	"action":
 	{
 		"default_icon": "icons/moodle-icon-016.png",
 		"default_popup": "src/popup.html",
@@ -36,7 +32,7 @@
 		"32": "icons/moodle-icon-032.png",
 		"16": "icons/moodle-icon-016.png"
 	},
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"name": "Moodle File Archive",
 	"permissions":
 	[
@@ -44,5 +40,5 @@
 		"downloads",
 		"storage"
 	],
-	"version": "1.0.0"
+	"version": "1.0.1"
 }
