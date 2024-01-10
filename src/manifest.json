@@ -1,12 +1,12 @@
 {
 	"background":
 	{
-		"service_worker": "src/background.js"
+		"service_worker": "js/background.js"
 	},
 	"action":
 	{
-		"default_icon": "icons/moodle-icon-016.png",
-		"default_popup": "src/popup.html",
+		"default_icon":  "icons/moodle-icon-016.png",
+		"default_popup": "popup.html",
 		"default_title": "Download Moodle page contents."
 	},
 	"content_scripts":
@@ -14,8 +14,8 @@
 		{
 			"js":
 			[
-				"src/button.js",
-				"src/moodleWorking.js"
+				"js/button.js",
+				"js/moodle-working.js"
 			],
 			"matches":
 			[
@@ -28,9 +28,9 @@
 	{
 		"256": "icons/moodle-icon-256.png",
 		"128": "icons/moodle-icon-128.png",
-		"64": "icons/moodle-icon-064.png",
-		"32": "icons/moodle-icon-032.png",
-		"16": "icons/moodle-icon-016.png"
+		"64":  "icons/moodle-icon-064.png",
+		"32":  "icons/moodle-icon-032.png",
+		"16":  "icons/moodle-icon-016.png"
 	},
 	"manifest_version": 3,
 	"name": "Moodle File Archive",
@@ -40,5 +40,5 @@
 		"downloads",
 		"storage"
 	],
-	"version": "1.0.1"
+	"version": "1.0.3"
 }
