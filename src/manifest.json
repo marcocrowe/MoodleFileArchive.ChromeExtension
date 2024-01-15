@@ -34,11 +34,5 @@
 	},
 	"manifest_version": 3,
 	"name": "Moodle File Archive",
-	"permissions":
-	[
-		"activeTab",
-		"downloads",
-		"storage"
-	],
-	"version": "1.0.3"
+	"version": "1.0.4"
 }
