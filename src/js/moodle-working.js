@@ -15,7 +15,11 @@ function downloadResourceFile(resourceFileName, resourceUrl) {
 
 		let hyperlink = document.createElement('a');
 		hyperlink.href = window.URL.createObjectURL(file);
-		hyperlink.download = resourceFileName + "." + getFileExtension(request);
+		let extension = getFileExtension(request);
+		if(extension)
+			hyperlink.download = `${resourceFileName}.${getFileExtension(request)}`;
+		else
+			hyperlink.download = resourceFileName;
 
 		hyperlink.click(); /* click the link created to launch download*/
 	};
@@ -29,7 +33,7 @@ function downloadResourceFile(resourceFileName, resourceUrl) {
  */
 function getFileExtension(request) {
 	let filename = getFileName(request);
-	return filename.split('.').pop();
+	return filename?.split('.')?.pop();
 }
 /**
  * Get the filename from the Request
@@ -38,7 +42,7 @@ function getFileExtension(request) {
  */
 function getFileName(request) {
 	let contentDisposition = request.getResponseHeader('Content-Disposition');
-	return contentDisposition.split('filename=').pop().slice(0, -1);
+	return contentDisposition?.split('filename=').pop().slice(0, -1);
 }
 
 /**
