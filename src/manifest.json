@@ -15,8 +15,8 @@
 			"js":
 			[
 				"js/button.js",
-				"js/moodle-resource.js",
-				"js/moodle-working.js"
+				"js/moodle-downloader.js",
+				"js/moodle-resource.js"
 			],
 			"matches":
 			[
@@ -35,5 +35,5 @@
 	},
 	"manifest_version": 3,
 	"name": "Moodle File Archive",
-	"version": "1.0.5"
+	"version": "1.0.6"
 }
