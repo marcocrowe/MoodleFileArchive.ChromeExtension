@@ -7,7 +7,7 @@ function mainEventHandler(messageObject)
 	// If the received message has the expected format...
 	if(messageObject.text === "report_back")
 	{
-		processDocument();
+		MoodleDownloader.downloadAllResourcesFromDocument();
 	}
 }
 chrome.runtime.onMessage.addListener(mainEventHandler);

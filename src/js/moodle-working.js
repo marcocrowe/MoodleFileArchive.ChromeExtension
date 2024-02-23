@@ -1,108 +1,98 @@
 /**
- * starts a download of the Resource File
- * @param {String} resourceFileName 
- * @param {String} resourceUrl 
+ * Represents a downloader for Moodle resources.
  */
-function downloadResourceFile(resourceFileName, resourceUrl) {
-	window.URL = window.URL || window.webkitURL;
-
-	let request = new XMLHttpRequest();
-
-	request.open('GET', resourceUrl, true);
-	request.responseType = 'blob';
-	request.onload = function () {
-		let file = new Blob([request.response], { type: 'application/octet-stream' });
-
-		let hyperlink = document.createElement('a');
-		hyperlink.href = window.URL.createObjectURL(file);
-		let extension = getFileExtension(request);
-		if(extension)
-			hyperlink.download = `${resourceFileName}.${getFileExtension(request)}`;
-		else
-			hyperlink.download = resourceFileName;
-
-		hyperlink.click(); /* click the link created to launch download*/
-	};
-	request.send();
-}
-
-/**
- * Get the filename extension
- * @param {XMLHttpRequest} request 
- * @returns {String} filename extension
- */
-function getFileExtension(request) {
-	let filename = getFileName(request);
-	return filename?.split('.')?.pop();
-}
-/**
- * Get the filename from the Request
- * @param {XMLHttpRequest} request 
- * @returns {String} filename
- */
-function getFileName(request) {
-	let contentDisposition = request.getResponseHeader('Content-Disposition');
-	return contentDisposition?.split('filename=').pop().slice(0, -1);
-}
-
-/**
- * Pad the numbers less than 10 with a leading zero
- * @param {int} number 
- * @returns {String} padded number
- */
-function pad(number) {
-	if (number < 10)
-		return "0" + number;
-	return number;
-}
-
-/**
- * Get the resource links from the document's Links
- * @param {HTMLCollectionOf<HTMLAnchorElement>} documentLinks 
- * @returns {MoodleResource[]} Array of MoodleResource objects
- */
-function getResourceLinks(documentLinks) {
-	let resourceLinks = [];
-	for (let documentLink of documentLinks) {
-		if (documentLink.href.indexOf("mod/resource") != -1 || documentLink.href.indexOf("pluginfile.php") != -1) {
-			resourceLinks.push(new MoodleResource(documentLink.text, documentLink.href));
-		}
-	}
-	return resourceLinks;
-}
-
-/**
- * MoodleResource class
- */
-class MoodleResource {
+class MoodleDownloader {
 	/**
-	 * Constructs a new MoodleResource object
-	 * @param {String} title 
-	 * @param {String} url 
+	 * Downloads all Moodle resources from the current document.
+	 * Retrieves Moodle resources from the document, prompts the user for confirmation,
+	 * and initiates the download process for each resource.
+	 * @returns {Promise<void>} A Promise that resolves when all resources have been downloaded.
 	 */
-	constructor(title, url) {
-		this.Title = title;
-		this.Url = url;
-	}
-}
+	static async downloadAllResourcesFromDocument() {
+		let moodleResources = MoodleDownloader.getMoodleResourcesFromDocument();
 
-/**
- * process the webpage document for moodle files
- */
-function processDocument() {
-	let documentLinks = document.getElementsByTagName("a");
-	let resourceLinks = getResourceLinks(documentLinks);
-
-	if (window.confirm(resourceLinks.length + " resources found. Click OK to download "+ resourceLinks.length +" files.")) {
-		let output = "";
-		for (let index = 0, fileNumber = 1; index < resourceLinks.length; index++, fileNumber++) {
-			let moodleResource = resourceLinks[index];
-			let resourceFileName = pad(fileNumber) + " - " + moodleResource.Title;
-			let resourceUrl = moodleResource.Url;
-
-			output += resourceFileName + "\n";
-			downloadResourceFile(resourceFileName, resourceUrl);
+		if (window.confirm(moodleResources.length + " resources found. Click OK to download " + moodleResources.length + " files.")) {
+			for (let moodleResource of moodleResources) {
+				console.log(moodleResource.getFileName());
+				await MoodleDownloader.downloadResourceFile(moodleResource);
+			}
 		}
-		console.log(output);
+	}
+
+	/**
+	 * Downloads the specified Moodle resource.
+	 * @param {MoodleResource} moodleResource - The Moodle resource to download.
+	 * @returns {Promise<void>} A Promise that resolves when the download is complete.
+	 */
+	static async downloadResourceFile(moodleResource) {
+		try {
+			window.URL = window.URL || window.webkitURL;
+
+			const options = {
+				method: 'GET',
+				responseType: 'blob'
+			};
+
+			const response = await fetch(moodleResource.url, options);
+			const blob = await response.blob();
+
+			const contentType = response.headers.get('content-type');
+			const extension = MoodleDownloader.getFileExtensionFromContentType(contentType);
+
+			const hyperlinkElement = document.createElement('a');
+			hyperlinkElement.href = URL.createObjectURL(blob);
+			hyperlinkElement.download = extension ? `${moodleResource.getFileName()}.${extension}` : moodleResource.getFileName();
+			hyperlinkElement.click(); /* Trigger the click event to start the download */
+		} catch (error) {
+			console.error(`Error downloading resource file: ${moodleResource.getFileName()}`, error);
+		}
+	}
+
+	/**
+	 * Get the file extension from the Content-Type header.
+	 * @param {string} contentType - The content type header.
+	 * @returns {string} The file extension if present otherwise returns an empty string if Content-Type is malformed.
+	 */
+	static getFileExtensionFromContentType(contentType) {
+		if (!contentType)
+			return '';
+
+		const mimeTypeToExtensionMap = {
+			'application/pdf': 'pdf',
+			'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+			'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'pptx',
+			'application/msaccess': 'mdb',
+			'application/vnd.visio': 'vsdx',
+			'text/html;charset=UTF-8': 'html',
+			// Add more MIME types to file extension mappings as needed
+		};
+
+		const extensionFromMapping = mimeTypeToExtensionMap[contentType];
+		if (extensionFromMapping)
+			return extensionFromMapping;
+
+		const mimeTypeParts = contentType.split('/');
+		if (mimeTypeParts.length === 2) {
+			return mimeTypeParts[1];
+		}
+		return '';
+	}
+
+	/**
+	 * Get the resource links from the document's Links
+	 * @returns {MoodleResource[]} Array of MoodleResource objects
+	 */
+	static getMoodleResourcesFromDocument() {
+		/** @param {HTMLCollectionOf<HTMLAnchorElement>} **/
+		let documentLinks = document.getElementsByTagName("a");
+
+		let moodleResources = [];
+		for (let documentLink of documentLinks) {
+			if (documentLink.href.indexOf("mod/resource") != -1 || documentLink.href.indexOf("pluginfile.php") != -1) {
+				moodleResources.push(new MoodleResource(moodleResources.length + 1, documentLink.text, documentLink.href));
+			}
+		}
+		return moodleResources;
 	}
 }
