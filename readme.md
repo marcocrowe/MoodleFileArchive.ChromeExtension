@@ -15,6 +15,10 @@ To keep a copy of the files on a moodle module you have to download each file, t
 
 This is a work in progress and may not work for all files on a moodle module.
 
+## Limitations
+
+This extension cannot get files from sub-pages on a course page.  If the page has pop down sections for file links, you must open each section first and then use the extension.
+
 ## Requirements
 
 A [Chromium](https://www.chromium.org/Home) based browser such as:

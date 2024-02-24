@@ -487,3 +487,6 @@ FodyWeavers.xsd
 
 # WinMerge
 *.bak
+
+# Custom
+src.zip
